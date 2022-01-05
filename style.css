@@ -1,0 +1,28 @@
+.container {
+    display: inline;
+    margin: 30px;
+  }
+  video {
+    width: 500px;
+    height: 400px;
+    object-fit: cover;
+    display: inline-block;
+    border: 2px solid black;
+  }
+  .btn{
+    display: inline-block;
+    line-height: 24px;
+    font-family: arial,sans-serif;
+    margin: 5px;
+    border: 2px solid black;
+  }
+  .detail{
+    display: inline-block;
+    border: 2px solid black;
+    height: 400px;
+    width: 500px;
+    margin-left: 100px;
+  }
+  .webcam{
+    text-align: center;
+  }

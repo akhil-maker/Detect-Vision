@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
+    <script src="webcam.js"></script>
+    <script>$(function () { start(); });</script>
+    <link rel="stylesheet" href="style.css">
+    <title>Video detection</title>
+</head>
+<body>
+    <div class="container">
+      <video id="video" autoplay></video>
+      <div class="detail">
+        <h1 style="display: table-row;">Possible things are:</h1>
+        <hr style="display: table-row;">
+        <p id="detect" style="display: table-row;"></p>
+      </div>
+      <div class="webcam">
+        <button class="btn" onclick="start()">Start webcam</button>
+        <button class="btn" onclick="StopWebCam()">Stop webcam</button>
+      </div>
+    </div>
+    <h2>By Akhil Soni</h2>
+    <script>
+        const video = document.getElementById("video");
+        const maxWidth = window.innerWidth;
+        const maxHeight = window.innerHeight;
+        const constraints = {
+          width: {ideal: maxWidth, max: maxWidth},
+          height: {ideal: maxHeight, max: maxHeight},
+        };
+        video.width = maxWidth;
+        video.height = maxHeight;
+        function detect(){
+          var det = document.getElementById("detect");
+          det.innerHTML = ``;
+          mobilenet.load().then(model => {
+            model.classify(video).then(predictions => {
+                console.log('Predictions: ');
+                console.log(predictions);
+                var det = document.getElementById("detect");
+                for(let i=0; i<predictions.length; i++){
+                  det.innerHTML += `<li>${predictions[i].className}</li>`;
+                }
+            });
+          });
+        }
+    </script>
+</body>
+</html>
